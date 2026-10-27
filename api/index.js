@@ -23,9 +23,14 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// Serve the CMS dashboard at the root URL.
+// Serve the publish page at the root URL.
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'publish.html'));
+});
+
+// Serve the admin dashboard.
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
 });
 
 // Route Contoh: Mengambil Daftar Konten dari Firestore
