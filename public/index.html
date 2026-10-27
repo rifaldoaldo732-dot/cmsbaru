@@ -45,6 +45,10 @@
         async function fetchPosts() {
             try {
                 const response = await fetch('/api/posts');
+                if (!response.ok) {
+                    const body = await response.json().catch(() => ({}));
+                    throw new Error(body.error || ('Server merespons ' + response.status));
+                }
                 const posts = await response.json();
                 const container = document.getElementById('postsList');
                 
@@ -62,6 +66,8 @@
                 `).join('');
             } catch (error) {
                 console.error('Gagal memuat post:', error);
+                document.getElementById('postsList').innerHTML =
+                    '<p class="text-red-600 font-semibold">Gagal memuat data:</p><p class="text-red-500 text-sm break-all">' + String(error.message).replace(/</g, "&lt;") + '</p>';
             }
         }
 

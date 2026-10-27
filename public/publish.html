@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publikasi - Node.js CMS & Firestore</title>
+    <!-- Tailwind CSS untuk styling cepat -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal">
+
+    <div class="container mx-auto p-6 max-w-4xl">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Publikasi</h1>
+            <p class="text-gray-600">Daftar Konten yang Dipublikasikan</p>
+            <div class="mt-4">
+                <a href="/admin" class="text-blue-600 hover:text-blue-800 underline">Ke Halaman Admin</a>
+            </div>
+        </header>
+
+        <!-- Daftar Konten Publik -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Postingan Terbaru</h2>
+            <div id="postsList" class="space-y-6">
+                <p class="text-gray-500">Memuat data...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengambil dan merender postingan
+        async function fetchPosts() {
+            try {
+                const response = await fetch('/api/posts');
+                if (!response.ok) {
+                    const body = await response.json().catch(() => ({}));
+                    throw new Error(body.error || ('Server merespons ' + response.status));
+                }
+                const posts = await response.json();
+                const container = document.getElementById('postsList');
+                
+                if (posts.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500">Belum ada postingan.</p>';
+                    return;
+                }
+
+                // Urutkan berdasarkan createdAt terbaru
+                posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                container.innerHTML = posts.map(post => `
+                    <article class="border-b pb-6 mb-6 last:border-b-0 last:pb-0 last:mb-0">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${escapeHtml(post.title)}</h3>
+                        <p class="text-gray-600 leading-relaxed whitespace-pre-wrap">${escapeHtml(post.content)}</p>
+                        <span class="text-sm text-gray-400 mt-3 block">Dipublikasikan: ${new Date(post.createdAt).toLocaleString('id-ID')}</span>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error('Gagal memuat post:', error);
+                document.getElementById('postsList').innerHTML =
+                    '<p class="text-red-600 font-semibold">Gagal memuat data:</p><p class="text-red-500 text-sm break-all">' + String(error.message).replace(/</g, "&lt;") + '</p>';
+            }
+        }
+
+        // Helper untuk mencegah XSS dasar
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Load data saat halaman dibuka
+        fetchPosts();
+    </script>
+</body>
+</html>
