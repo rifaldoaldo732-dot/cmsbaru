@@ -3,33 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publikasi - Node.js CMS & Firestore</title>
-    <!-- Tailwind CSS untuk styling cepat -->
+    <title>Aldo CMS - Berita & Artikel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .article-content {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans leading-normal tracking-normal">
+<body class="bg-white text-gray-900">
+    <!-- Header -->
+    <header class="border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16">
+                <a href="/" class="flex items-center space-x-2">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <span class="text-lg font-bold text-gray-900">Aldo CMS</span>
+                </a>
+                <a href="/admin" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                    Admin Panel
+                </a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="container mx-auto p-6 max-w-4xl">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Publikasi</h1>
-            <p class="text-gray-600">Daftar Konten yang Dipublikasikan</p>
-            <div class="mt-4">
-                <a href="/admin" class="text-blue-600 hover:text-blue-800 underline">Ke Halaman Admin</a>
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 mb-5">
+                    Aldo CMS
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight mb-4 leading-tight">
+                    Berita &amp; Artikel
+                </h1>
+                <p class="text-xl sm:text-2xl text-indigo-700 font-semibold italic mb-4">
+                    &ldquo;Membaca dan Menulis adalah Nutrisi Otak&rdquo;
+                </p>
+                <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
+                    Kumpulan artikel terbaru untuk menambah wawasan dan mengasah pikiran Anda.
+                    Baca, tulis, dan tumbuh bersama Aldo CMS.
+                </p>
             </div>
-        </header>
-
-        <!-- Daftar Konten Publik -->
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-4 text-gray-700">Postingan Terbaru</h2>
-            <div id="postsList" class="space-y-6">
-                <p class="text-gray-500">Memuat data...</p>
+            <div class="grid grid-cols-2 gap-4">
+                <img
+                    src="/aldo.jpg"
+                    alt="Foto Aldo - pemilik Aldo CMS"
+                    class="col-span-2 w-full h-52 sm:h-64 object-cover object-top rounded-2xl shadow-md"
+                    loading="eager">
+                <img
+                    src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600&auto=format&fit=crop"
+                    alt="Rak buku perpustakaan"
+                    class="w-full h-36 sm:h-44 object-cover rounded-2xl shadow-md"
+                    loading="lazy">
+                <img
+                    src="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600&auto=format&fit=crop"
+                    alt="Tangan menulis di buku"
+                    class="w-full h-36 sm:h-44 object-cover rounded-2xl shadow-md"
+                    loading="lazy">
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Articles Section -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div id="postsList" class="grid gap-8">
+            <!-- Loading State -->
+            <article class="border border-gray-100 rounded-2xl p-8 sm:p-10">
+                <div class="animate-pulse">
+                    <div class="h-3 bg-gray-200 rounded w-24 mb-4"></div>
+                    <div class="h-10 bg-gray-200 rounded w-4/5 mb-4"></div>
+                    <div class="space-y-3 mb-6">
+                        <div class="h-4 bg-gray-200 rounded"></div>
+                        <div class="h-4 bg-gray-200 rounded"></div>
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                    <div class="h-3 bg-gray-200 rounded w-32"></div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col sm:flex-row items-center justify-between">
+                <div class="flex items-center space-x-2 mb-4 sm:mb-0">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-900">Aldo CMS</span>
+                </div>
+                <p class="text-sm text-gray-500">&copy; 2024 Aldo CMS. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Fungsi untuk mengambil dan merender postingan
         async function fetchPosts() {
+            const container = document.getElementById('postsList');
             try {
                 const response = await fetch('/api/posts');
                 if (!response.ok) {
@@ -37,36 +124,76 @@
                     throw new Error(body.error || ('Server merespons ' + response.status));
                 }
                 const posts = await response.json();
-                const container = document.getElementById('postsList');
-                
+
                 if (posts.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500">Belum ada postingan.</p>';
+                    container.innerHTML = `
+                        <div class="text-center py-16">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Belum ada artikel</h3>
+                            <p class="text-gray-600 mb-6">Mulai tulis artikel pertama Anda</p>
+                            <a href="/admin" class="inline-flex items-center text-sm font-medium text-gray-900 hover:underline">
+                                Buka Admin Panel
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    `;
                     return;
                 }
 
-                // Urutkan berdasarkan createdAt terbaru
                 posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
                 container.innerHTML = posts.map(post => `
-                    <article class="border-b pb-6 mb-6 last:border-b-0 last:pb-0 last:mb-0">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">${escapeHtml(post.title)}</h3>
-                        <p class="text-gray-600 leading-relaxed whitespace-pre-wrap">${escapeHtml(post.content)}</p>
-                        <span class="text-sm text-gray-400 mt-3 block">Dipublikasikan: ${new Date(post.createdAt).toLocaleString('id-ID')}</span>
+                    <article class="group cursor-pointer">
+                        <div class="border border-gray-100 rounded-2xl p-8 sm:p-10 hover:border-gray-200 hover:shadow-sm transition-all duration-300">
+                            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+                                <time datetime="${post.createdAt}">
+                                    ${new Date(post.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                </time>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-gray-700 transition-colors">
+                                ${escapeHtml(post.title)}
+                            </h2>
+                            <div class="article-content text-gray-700 leading-relaxed text-base sm:text-lg">
+                                ${escapeHtml(post.content)}
+                            </div>
+                        </div>
                     </article>
                 `).join('');
             } catch (error) {
                 console.error('Gagal memuat post:', error);
-                document.getElementById('postsList').innerHTML =
-                    '<p class="text-red-600 font-semibold">Gagal memuat data:</p><p class="text-red-500 text-sm break-all">' + String(error.message).replace(/</g, "&lt;") + '</p>';
+                container.innerHTML = `
+                    <div class="border border-red-100 rounded-2xl p-8 bg-red-50/50">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-red-900 font-semibold mb-1">Terjadi kesalahan</h3>
+                                <p class="text-red-700 text-sm">${escapeHtml(error.message)}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
         }
 
-        // Helper untuk mencegah XSS dasar
         function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
-        // Load data saat halaman dibuka
         fetchPosts();
     </script>
 </body>
