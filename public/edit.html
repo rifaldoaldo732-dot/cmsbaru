@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor - Aldo CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .preview-content { white-space: pre-wrap; word-break: break-word; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-semibold text-gray-900">Aldo CMS - Editor</h1>
+                        <p class="text-xs text-gray-500">Auto Generate Content (tanpa API)</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <a href="/admin" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        Admin Panel
+                    </a>
+                    <a href="/" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        Lihat Publikasi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-1">Editor Artikel + Auto Generate</h2>
+            <p class="text-gray-600">Ketik topik/judul, klik <span class="font-semibold text-indigo-700">Auto Generate</span>, draf artikel langsung jadi — sepenuhnya dibuat di browser, tanpa API.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Editor -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-base font-semibold text-gray-900">Draf Artikel</h3>
+                    <span id="wordCount" class="px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">0 kata</span>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Topik / Judul <span class="text-gray-400">(dipakai generator)</span></label>
+                        <div class="flex space-x-2">
+                            <input
+                                type="text"
+                                id="title"
+                                placeholder="mis: Manfaat Membaca Sebelum Tidur"
+                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all"
+                            >
+                            <button
+                                type="button"
+                                id="generateBtn"
+                                class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-colors text-sm font-medium whitespace-nowrap"
+                            >
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                </svg>
+                                Auto Generate
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-4 mt-3">
+                            <span class="text-xs text-gray-500">Panjang:</span>
+                            <label class="inline-flex items-center space-x-1 text-xs text-gray-700">
+                                <input type="radio" name="length" value="short" class="text-indigo-600 focus:ring-indigo-500">
+                                Pendek
+                            </label>
+                            <label class="inline-flex items-center space-x-1 text-xs text-gray-700">
+                                <input type="radio" name="length" value="medium" checked class="text-indigo-600 focus:ring-indigo-500">
+                                Sedang
+                            </label>
+                            <label class="inline-flex items-center space-x-1 text-xs text-gray-700">
+                                <input type="radio" name="length" value="long" class="text-indigo-600 focus:ring-indigo-500">
+                                Panjang
+                            </label>
+                            <button type="button" id="suggestTitleBtn" class="text-xs text-indigo-700 hover:underline font-medium ml-auto">
+                                Saran judul?
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Konten</label>
+                        <textarea
+                            id="content"
+                            rows="18"
+                            placeholder="Klik Auto Generate, atau tulis manual di sini..."
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all resize-y font-mono"
+                        ></textarea>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button
+                            type="button"
+                            id="saveBtn"
+                            class="flex-1 bg-indigo-600 text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-colors text-sm font-medium flex items-center justify-center"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                            Publikasikan
+                        </button>
+                        <button
+                            type="button"
+                            id="clearBtn"
+                            class="px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                        >
+                            Bersihkan
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400">Publikasi menyimpan lewat endpoint /api/posts yang sama (Firestore). Generate itu sendiri tidak butuh API apa pun.</p>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hidden lg:block">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-base font-semibold text-gray-900">Pratinjau</h3>
+                    <p class="text-sm text-gray-500 mt-1">Tampilan kurang lebih seperti di halaman publikasi</p>
+                </div>
+                <div class="p-8">
+                    <h4 id="previewTitle" class="text-2xl font-bold text-gray-900 mb-4 leading-tight">&nbsp;</h4>
+                    <div id="previewContent" class="preview-content text-gray-700 leading-relaxed"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 bg-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-sm text-gray-600">&copy; 2024 Aldo CMS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ====== AUTO GENERATOR (100% lokal, tanpa API) ======
+        const QUOTES = [
+            "Membaca dan Menulis adalah Nutrisi Otak",
+            "Pembaca hari ini adalah pemimpin esok hari",
+            "Menulis adalah cara berpikir dua kali",
+            "Satu buku mingguan mengubah cara pandang setahun"
+        ];
+
+        const OPENERS = [
+            "Banyak orang tahu bahwa {T} itu penting, tetapi hanya sedikit yang menjalankannya secara konsisten. Artikel ini membahas cara memulainya dengan langkah sederhana yang bisa dilakukan siapa saja.",
+            "Kebiasaan baik hampir selalu dimulai dari hal kecil. Begitu juga dengan {T} — tanpa strategi yang tepat, semangat bisa habis sebelum hasilnya terlihat. Mari kita bahas langkah yang realistis.",
+            "Tidak ada jalan instan untuk menguasai {T}. Namun kabar baiknya, kemajuan kecil yang rutin jauh lebih berdampak daripada usaha besar yang hanya berlangsung sebentar."
+        ];
+
+        const SECTIONS = [
+            { head: "Mengapa Ini Penting?",
+              bodies: [
+                "Otak kita bekerja seperti otot: semakin sering dilatih, semakin kuat. Membaca melatih fokus dan memperluas kosakata, sementara menulis memaksa kita menata pikiran agar mudah dipahami orang lain.",
+                "Kebiasaan ini memberi efek kumulatif. Lima belas menit sehari terdengar sepele, tetapi dalam setahun setara dengan beberapa buku utuh dan puluhan halaman tulisan milikmu sendiri."
+              ] },
+            { head: "Mulai dari Langkah Terkecil",
+              bodies: [
+                "Jangan menargetkan satu buku per minggu di awal. Mulailah dari sepuluh halaman atau satu paragraf tulisan. Target yang terlalu besar justru membuat kita menyerah di minggu pertama.",
+                "Tempatkan buku atau alat tulis di lokasi yang mudah terlihat. Lingkungan yang mendukung membuat keputusan baik terasa lebih ringan dilakukan."
+              ] },
+            { head: "Kebiasaan Kecil yang Berdampak Besar",
+              bodies: [
+                "Bangun kebiasaan pada jam yang sama setiap hari, misalnya sepuluh menit sebelum tidur. Otak menyukai rutinitas; semakin konsisten waktunya, semakin kecil hambatan untuk memulai.",
+                "Simpan ide dan kutipan menarik yang kamu temukan dalam satu tempat. Catatan kecil ini menjadi bahan baku menulis yang tidak pernah kehabisan."
+              ] },
+            { head: "Tantangan yang Sering Muncul",
+              bodies: [
+                "Tantangan terbesar biasanya bukan kemalasan, melainkan distraksi. Matikan notifikasi saat sesi membaca atau menulis, meski hanya selama lima belas menit.",
+                "Kadang kita merasa tulisan sendiri jelek. Itu normal — draf yang jelek bisa diperbaiki, sedangkan draf yang tidak pernah ditulis tidak bisa diperbaiki apa pun."
+              ] }
+        ];
+
+        const CLOSERS = [
+            "Kesimpulannya, {T} bukan soal bakat, melainkan konsistensi. Mulailah hari ini dengan langkah paling kecil yang bisa kamu lakukan dalam lima menit.",
+            "Pada akhirnya, yang membedakan bukan seberapa cerdas kita memulai, tetapi seberapa sering kita mengulang. Jadikan {T} bagian dari rutinitas harianmu, pelan tapi pasti."
+        ];
+
+        function capitalT(topic) {
+            const t = (topic || "").trim();
+            if (!t) return "membaca dan menulis";
+            return t.charAt(0).toUpperCase() + t.slice(1);
+        }
+
+        function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+        function generateArticle(topic, length) {
+            const t = (topic || "membaca dan menulis").toLowerCase();
+            const T = capitalT(t);
+            const pointCount = length === "short" ? 2 : (length === "long" ? 4 : 3);
+            const sections = [...SECTIONS].sort(() => Math.random() - 0.5).slice(0, pointCount);
+
+            const parts = [];
+            parts.push(pick(OPENERS).replace(/{T}/g, T));
+            parts.push("");
+            parts.push(`“${pick(QUOTES)}.”`);
+            parts.push("");
+
+            sections.forEach((s) => {
+                parts.push(s.head);
+                parts.push(pick(s.bodies));
+                parts.push("");
+            });
+
+            parts.push(pick(CLOSERS).replace(/{T}/g, T));
+            return parts.join("\n");
+        }
+
+        const TITLE_SUGGESTIONS = [
+            "5 Kebiasaan Membaca yang Mudah Dilakukan",
+            "{T}: Mulai dari 15 Menit Sehari",
+            "Cara Sederhana Menjadikan {T} sebagai Rutinitas",
+            "Rahasia Konsisten dalam {T}",
+            "{T} untuk Pemula: Panduan Singkat"
+        ];
+
+        function suggestTitle() {
+            const t = document.getElementById('title').value.trim() || "Membaca dan Menulis";
+            const s = pick(TITLE_SUGGESTIONS).replace("{T}", capitalT(t));
+            document.getElementById('title').value = s;
+            updatePreview();
+        }
+
+        // ====== UI ======
+        const $title = document.getElementById('title');
+        const $content = document.getElementById('content');
+
+        function updateWordCount() {
+            const count = ($content.value.trim().match(/\S+/g) || []).length;
+            document.getElementById('wordCount').textContent = count + ' kata';
+        }
+
+        function updatePreview() {
+            document.getElementById('previewTitle').textContent = $title.value || '(tanpa judul)';
+            document.getElementById('previewContent').textContent = $content.value;
+            updateWordCount();
+        }
+
+        $title.addEventListener('input', updatePreview);
+        $content.addEventListener('input', updatePreview);
+
+        document.getElementById('generateBtn').addEventListener('click', () => {
+            const length = document.querySelector('input[name="length"]:checked').value;
+            $content.value = generateArticle($title.value, length);
+            updatePreview();
+        });
+
+        document.getElementById('suggestTitleBtn').addEventListener('click', suggestTitle);
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            $title.value = '';
+            $content.value = '';
+            updatePreview();
+        });
+
+        // ====== SIMPAN (tetap lewat /api/posts) ======
+        document.getElementById('saveBtn').addEventListener('click', async () => {
+            const title = $title.value.trim();
+            const content = $content.value.trim();
+            if (!title || !content) {
+                showAlert('Judul dan konten tidak boleh kosong.');
+                return;
+            }
+            const btn = document.getElementById('saveBtn');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = 'Mempublikasikan...';
+
+            try {
+                const response = await fetch('/api/posts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content })
+                });
+                if (!response.ok) {
+                    const body = await response.json().catch(() => ({}));
+                    throw new Error(body.error || ('Server merespons ' + response.status));
+                }
+                showToast('Berhasil dipublikasikan');
+            } catch (error) {
+                showAlert('Gagal mempublikasikan: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+            }
+        });
+
+        function showToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2.5 rounded-lg shadow-lg text-sm flex items-center z-50';
+            toast.innerHTML = `
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                ${msg}
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function showAlert(msg) {
+            alert(msg);
+        }
+
+        updatePreview();
+    </script>
+</body>
+</html>

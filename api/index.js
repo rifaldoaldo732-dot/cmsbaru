@@ -37,6 +37,11 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'admin.html'));
 });
 
+// Serve the article editor with local (no-API) auto content generator.
+app.get('/edit', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'edit.html'));
+});
+
 // Route Contoh: Mengambil Daftar Konten dari Firestore
 app.get('/api/posts', async (req, res) => {
   try {
