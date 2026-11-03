@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Abzah CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-semibold text-gray-900">Abzah CMS</h1>
+                        <p class="text-xs text-gray-500">Content Management System</p>
+                    </div>
+                </div>
+                <a href="/" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    Lihat Publikasi
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-1">Kelola Artikel</h2>
+            <p class="text-gray-600">Buat dan kelola konten untuk publikasi</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Form Section -->
+            <div class="lg:col-span-5">
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-base font-semibold text-gray-900">Tulis Artikel Baru</h3>
+                        <p class="text-sm text-gray-500 mt-1">Isi formulir di bawah ini</p>
+                    </div>
+                    <form id="postForm" class="p-6 space-y-5">
+                        <div>
+                            <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Judul</label>
+                            <input
+                                type="text"
+                                id="title"
+                                required
+                                placeholder="Masukkan judul artikel"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all"
+                            >
+                        </div>
+                        <div>
+                            <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Konten</label>
+                            <textarea
+                                id="content"
+                                rows="12"
+                                required
+                                placeholder="Tulis isi artikel Anda di sini..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm transition-all resize-y"
+                            ></textarea>
+                        </div>
+                        <button
+                            type="submit"
+                            class="w-full bg-indigo-600 text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-colors text-sm font-medium flex items-center justify-center"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                            Publikasikan
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Articles List Section -->
+            <div class="lg:col-span-7">
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-base font-semibold text-gray-900">Daftar Artikel</h3>
+                            <p class="text-sm text-gray-500 mt-1">Artikel yang telah dipublikasikan</p>
+                        </div>
+                        <span id="postCount" class="px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
+                            0
+                        </span>
+                    </div>
+                    <div id="postsList" class="divide-y divide-gray-100">
+                        <!-- Loading -->
+                        <div class="p-6">
+                            <div class="animate-pulse space-y-3">
+                                <div class="h-5 bg-gray-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-gray-200 rounded"></div>
+                                <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                                <div class="h-3 bg-gray-200 rounded w-1/4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 bg-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <p class="text-sm text-gray-600">&copy; 2024 Abzah CMS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        async function fetchPosts() {
+            const container = document.getElementById('postsList');
+            const countBadge = document.getElementById('postCount');
+            try {
+                const response = await fetch('/api/posts');
+                if (!response.ok) {
+                    const body = await response.json().catch(() => ({}));
+                    throw new Error(body.error || ('Server merespons ' + response.status));
+                }
+                const posts = await response.json();
+
+                countBadge.textContent = posts.length;
+
+                if (posts.length === 0) {
+                    container.innerHTML = `
+                        <div class="p-10 text-center">
+                            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-gray-600">Belum ada artikel</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                container.innerHTML = posts.map(post => `
+                    <article class="p-6 hover:bg-gray-50/50 transition-colors">
+                        <h4 class="text-base font-semibold text-gray-900 mb-2">${escapeHtml(post.title)}</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-3 line-clamp-2 whitespace-pre-wrap">${escapeHtml(post.content)}</p>
+                        <div class="flex items-center text-xs text-gray-500">
+                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            ${new Date(post.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error('Gagal memuat post:', error);
+                container.innerHTML = `
+                    <div class="p-6">
+                        <div class="bg-red-50 border border-red-100 rounded-lg p-4">
+                            <p class="text-sm text-red-700">${escapeHtml(error.message)}</p>
+                        </div>
+                    </div>
+                `;
+                countBadge.textContent = '0';
+            }
+        }
+
+        document.getElementById('postForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const titleInput = document.getElementById('title');
+            const contentInput = document.getElementById('content');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnHTML = submitBtn.innerHTML;
+
+            titleInput.disabled = true;
+            contentInput.disabled = true;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Mempublikasikan...
+            `;
+
+            try {
+                const response = await fetch('/api/posts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: titleInput.value, content: contentInput.value })
+                });
+
+                if (response.ok) {
+                    document.getElementById('postForm').reset();
+                    fetchPosts();
+                    const toast = document.createElement('div');
+                    toast.className = 'fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2.5 rounded-lg shadow-lg text-sm flex items-center z-50';
+                    toast.innerHTML = `
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Berhasil dipublikasikan
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2500);
+                } else {
+                    alert('Gagal menyimpan postingan');
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan');
+            } finally {
+                titleInput.disabled = false;
+                contentInput.disabled = false;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHTML;
+            }
+        });
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        fetchPosts();
+    </script>
+</body>
+</html>
