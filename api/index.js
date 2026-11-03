@@ -6,6 +6,10 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+// Serve static files dari folder public (foto hero, dll.)
+// index: false agar route '/' tetap ke publish.html, bukan index.html
+app.use(express.static(path.join(__dirname, '..', 'public'), { index: false }));
+
 // Inisialisasi Firebase Admin SDK
 // Di Vercel, kredensial bisa dimasukkan via Environment Variables
 if (!admin.apps.length) {
